@@ -1,54 +1,89 @@
 ---
 name: zero-slop
-description: Kill AI slop in EVERYTHING — code, writing, design, plans. No generic boilerplate, no placeholder junk, no fake polish, no invented data. The general anti-slop gate for every task. Use on any output before calling it done.
+description: Kill AI slop in EVERYTHING — code, writing, design, plans. Severity-graded patterns (BLOCKER vs SMELL), concrete bad-to-good examples, and a mandatory pre-ship ritual. The final gate before anything ships. Use on any output before calling it done.
 license: MIT
 metadata:
   opencode/slash: "true"
 ---
 
-# Zero Slop
+# Zero Slop — the final gate
 
-AI slop is output that *looks* finished but is generic, hollow, or fake. This skill is the gate: run every deliverable through it before calling anything done.
+Slop ships when nobody checks. **This skill IS the check.** Run it on every deliverable. No exceptions, no "it's probably fine."
 
-## The one test
+## Severity
 
-**"Would a skilled human expert proudly ship this?"** If it looks like a template, reads like filler, or contains anything you wouldn't defend in a review — it's slop. Fix it.
+- **BLOCKER** — fix before shipping. No debate, no "later."
+- **SMELL** — fix if cheap; if you can't, say so openly.
+
+**3+ SMELLs = treat as BLOCKER.** Redo the work.
 
 ## Code slop
 
-- **Placeholder code.** `// TODO: implement`, `pass`, empty `catch {}` blocks, functions that return hardcoded values. Either implement it or say it's not implemented — never ship a fake.
-- **Generic boilerplate.** If the code could belong to any project on earth, it's not finished. Names, logic, and structure must reflect THIS task.
-- **Over-engineering.** Abstract factories for a 3-endpoint API. A config system for two values. Build what the task needs — nothing more.
-- **Dead code.** Commented-out blocks, unused imports, unreachable branches. Delete, don't comment.
-- **Copy-paste patterns.** The same 10 lines repeated 4 times with tiny changes = extract a function.
-- **Fake error handling.** Catching an exception just to log "error occurred" and continue as if nothing happened. Handle it or let it fail loudly.
-- **Meaningless names.** `data`, `temp`, `result2`, `handleThing`. Name what it IS: `unpaidInvoices`, `retryDelayMs`.
-- **Magic numbers.** `if (retries > 3)`, `setTimeout(86400000)`. Named constants with a comment saying WHY.
+### BLOCKERS
+
+- **Fake implementation.** `// TODO: implement`, `pass`, empty `catch {}`, functions returning hardcoded values disguised as logic. → Implement it, or declare it unimplemented. Never both pretend and ship.
+- **Invented behavior.** Code that claims to handle cases it never actually handles (validation that validates nothing, retries that don't retry). → Delete it or make it real.
+- **Swallowed errors.** `catch (e) { console.log("error"); }` then carrying on as if nothing happened. → Handle it, retry it, or fail loudly. Silence is a lie.
+- **Injection holes.** SQL, shell, or HTML built by concatenating user input. → Parameterize. Escape. Always. No exceptions.
+
+### SMELLS (bad → good)
+
+- **Comment restates code:** `// increment counter` above `counter++`. → Delete the comment. Comments explain WHY, never WHAT.
+- **Meaningless names:** `data`, `tmp`, `result2`, `handleThing`. → `unpaidInvoices`, `retryDelayMs`, `validateGstNumber`.
+- **Magic numbers:** `setTimeout(86400000)`, `if (retries > 3)`. → `const DAY_MS = 86_400_000 // session expiry window`.
+- **Copy-paste blocks:** same 10 lines repeated 4× with tiny changes. → Extract a function. Twice is coincidence, three times is a function.
+- **Dead code:** commented-out blocks, unused imports, unreachable branches. → Delete. Git remembers.
+- **Over-engineering:** abstract factory for 2 endpoints, config system for 2 values. → Simplest thing that works. Complexity must be earned.
+- **Inconsistent style:** mixed quotes, random indentation, half-formatted. → Match the file around it.
 
 ## Writing slop
 
-Banned outright: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving.
+**Banned outright:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, nestled, boasts, vibrant, bustling.
 
-Also cut: throat-clearing openers ("Here's the thing"), binary contrasts ("It's not X, it's Y"), fake-profound kickers, "in conclusion" recaps, em-dash spam, emoji-decorated headings. Say the point directly. (Full writing patterns live in the no-ai-slop skill — this is the general gate.)
+**BLOCKER patterns:**
+- **Invented specifics.** A stat, quote, date, or name with no source. → Source it or cut it. This is the worst slop there is.
+- **Throat-clearing openers.** "Here's the thing," "Let me be clear," "The uncomfortable truth is." → Delete. State the point.
+
+**SMELL patterns:**
+- **Binary contrasts.** "It's not X, it's Y." → Just say Y.
+- **Fake-profound kickers.** A "deep" final line that's really a Hallmark card. → End on the clearest concrete sentence.
+- **Summary recaps.** "In conclusion," "Ultimately." → The reader was just there. Cut it.
+- **Em-dash spam.** One decorative dash is style; five is a crutch. → Use commas or periods.
+- **Portability test.** If a sentence fits any company, product, or country unchanged, it's filler. → Replace with a specific fact or cut it.
 
 ## Design slop
 
-- **Default gradients.** Purple-to-blue hero backgrounds that appear on a million AI-generated sites. Pick a real palette with intent.
-- **Lorem ipsum / placeholder text.** Never ship "coming soon" boxes or fake content as finished design.
-- **Cookie-cutter layouts.** Centered hero + three feature cards + testimonial carousel, unchanged from every template. If it looks like everything else, redesign.
-- **Fake stats and testimonials.** Never invent numbers, reviews, or client logos.
-- **Stock-photo sameness.** Generic handshake/team-laptop imagery. Use real photos or honest placeholders labeled as such.
-- **Unexplained decoration.** Every element must earn its place — if removing it changes nothing, remove it.
+### BLOCKERS
 
-## Universal slop (every task)
+- **Fake content shipped as final.** Lorem ipsum, "coming soon" boxes, placeholder images presented as design. → Real content or an honest labeled placeholder. Never fake-as-final.
+- **Invented proof.** Fake stats, fake testimonials, fake client logos, fake review counts. → Never. This is fraud with better kerning.
+- **Inaccessible contrast.** Text that fails WCAG AA. → Fix the colors. Aesthetics never outrank readability.
 
-1. **Never invent.** Data, dates, prices, names, stats, quotes — if you don't have the source, say so. Invented specifics are the worst slop.
-2. **Never placeholder.** "Insert API key here", empty states presented as complete, half-wired buttons. Mark it unfinished or finish it.
-3. **Prove, don't claim.** "Done", "fixed", "verified", "tested" mean nothing without evidence. Show the test, the screenshot, the output.
-4. **No hedging spam.** "It seems", "might", "could potentially", "in most cases" stacked to avoid commitment. Be direct or say you don't know.
-5. **No AI self-reference.** Never "as an AI", never apologize for being a model, never explain your limitations unprompted. Just do the work.
-6. **Match the ask.** A 2-line question gets a 2-line answer. Don't turn a simple ask into a presentation.
+### SMELLS
 
-## How to use this skill
+- **Default gradients.** Purple-to-blue hero #4,382,901. → Pick a palette with intent or go solid.
+- **Cookie-cutter layout.** Centered hero → three cards → testimonial carousel, zero adaptation. → If it could be anyone's site, redesign.
+- **Stock-photo sameness.** Handshake photos, laptop-on-desk. → Real photos or honest abstract visuals.
+- **Tiny tap targets.** Under 44px on mobile. → Enlarge.
+- **Unexplained decoration.** Remove it mentally — if nothing changes, delete it for real.
 
-Before finishing ANY task, scan your output against the sections above. Fix what you find. If you can't fix something (missing data, unverifiable claim), say so openly instead of faking it.
+## Universal rules (every task, every time)
+
+1. **Never invent.** Numbers, names, dates, prices, quotes. No source = don't write it.
+2. **Never placeholder-as-done.** Half-wired buttons, empty states, "insert X here." → Finish it or mark it unfinished. Loudly.
+3. **Prove, don't claim.** "Done / fixed / verified / tested" without evidence is slop. Show the output, the test, the screenshot.
+4. **No hedging spam.** "It seems this might could potentially..." → Say it or say you don't know.
+5. **No AI self-reference.** Never "as an AI," never unprompted limitation speeches. Do the work.
+6. **Match the ask.** A 2-line question gets a 2-line answer. Don't gild it.
+
+## The pre-ship ritual (MANDATORY)
+
+Before typing done / fixed / ready / shipped, answer all five. In your head, honestly:
+
+1. **Did I invent anything?** Any number, name, date, quote without a source → source it or remove it.
+2. **Anything fake-as-final?** Placeholder, TODO, half-wired element → finish it or declare it unfinished.
+3. **Could this be anyone's?** If it fits another project/company unchanged → make it specific.
+4. **Did I claim completion?** Where is the evidence — test output, screenshot, file?
+5. **Would I defend every line in review?** If any line makes you flinch → fix that line.
+
+All five green → ship it. Any red → fix first, then re-run the ritual.
