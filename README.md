@@ -10,6 +10,7 @@ My custom OpenCode agent skills.
 | `chunked-work` | Break large tasks into small verifiable chunks and execute one at a time. Prevents long-generation stream failures. |
 | `flutter-dev` | Build Flutter apps like a senior mobile developer — clean Dart, Material 3 theming, encoding hygiene, device gate, reproducer-first bug fixing. |
 | `zero-slop` | General anti-slop gate for everything — kills AI slop in code, writing, and design before anything ships. |
+| `penpot-pilot` | Fully automates the Penpot MCP connection — opens the file, clicks File → MCP Server → Connect, verifies, and auto-reconnects. Zero manual steps after one-time login. |
 
 ## Install
 
@@ -20,7 +21,7 @@ npx skills add skodalaura20/ibrahim-skills -g -a opencode -y
 Install a single skill:
 
 ```powershell
-npx skills add skodalaura20/ibrahim-skills --skill zero-slop -g -a opencode -y
+npx skills add skodalaura20/ibrahim-skills --skill penpot-pilot -g -a opencode -y
 ```
 
 ## License
