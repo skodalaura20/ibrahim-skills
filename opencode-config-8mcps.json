@@ -68,12 +68,14 @@
             ],
             "enabled": true
         },
-        "figma-mcp-go": {
+        "penpot": {
             "type": "local",
             "command": [
                 "npx",
                 "-y",
-                "@vkhanhqui/figma-mcp-go"
+                "mcp-remote",
+                "https://design.penpot.app/mcp/stream?userToken=YOUR_MCP_KEY_HERE",
+                "--allow-http"
             ],
             "enabled": true
         }
