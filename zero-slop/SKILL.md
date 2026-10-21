@@ -1,6 +1,6 @@
 ---
 name: zero-slop
-description: Kill AI slop in EVERYTHING — code, writing, design, plans. Severity-graded patterns (BLOCKER vs SMELL), concrete bad-to-good examples, and a mandatory pre-ship ritual. The final gate before anything ships. Use on any output before calling it done.
+description: Kill AI slop in EVERYTHING — code, writing, design, plans. Severity-graded patterns (BLOCKER vs SMELL), bad-to-good examples, slop self-score gate, mandatory red-team pass, and a pre-ship ritual. The final gate before anything ships. Use on any output before calling it done.
 license: MIT
 metadata:
   opencode/slash: "true"
@@ -16,6 +16,26 @@ Slop ships when nobody checks. **This skill IS the check.** Run it on every deli
 - **SMELL** — fix if cheap; if you can't, say so openly.
 
 **3+ SMELLs = treat as BLOCKER.** Redo the work.
+
+## The slop score (NEW — quantitative gate)
+
+After fixing everything you found, score your own output 0–10. Be brutally honest — inflating your own score is the ultimate slop.
+
+- **10** — you'd sign your name on it publicly.
+- **8–9** — ship it.
+- **6–7** — one more pass. Fix the smells first.
+- **0–5** — redo. Don't polish slop — rebuild it.
+
+Score below 8 = not shippable. No exceptions.
+
+## Red-team pass (NEW — mandatory for important work)
+
+For anything that matters (client work, public content, production code, money decisions):
+
+1. Pretend you're a **hostile reviewer paid to find flaws** in this output.
+2. List **3 specific weaknesses** — not vibes, concrete flaws with locations.
+3. Fix at least the **worst one**. Note the other two openly.
+4. **Can't find 3 flaws? You didn't look hard enough.** Look again. Nobody's first draft is flawless — claiming otherwise is slop.
 
 ## Code slop
 
@@ -35,6 +55,9 @@ Slop ships when nobody checks. **This skill IS the check.** Run it on every deli
 - **Dead code:** commented-out blocks, unused imports, unreachable branches. → Delete. Git remembers.
 - **Over-engineering:** abstract factory for 2 endpoints, config system for 2 values. → Simplest thing that works. Complexity must be earned.
 - **Inconsistent style:** mixed quotes, random indentation, half-formatted. → Match the file around it.
+- **Silent data loss:** truncating, rounding, or dropping data without telling anyone. → Warn loudly or don't do it. Lost data with no warning is a betrayal.
+- **God function:** 100+ lines doing 5 jobs. → Split by job. One function, one job.
+- **Vague timelines (plans/work):** "soon", "ASAP", "in a bit". → Give a real estimate or admit you can't. Vagueness is schedule slop.
 
 ## Writing slop
 
@@ -78,12 +101,13 @@ Slop ships when nobody checks. **This skill IS the check.** Run it on every deli
 
 ## The pre-ship ritual (MANDATORY)
 
-Before typing done / fixed / ready / shipped, answer all five. In your head, honestly:
+Before typing done / fixed / ready / shipped, answer all six. In your head, honestly:
 
 1. **Did I invent anything?** Any number, name, date, quote without a source → source it or remove it.
 2. **Anything fake-as-final?** Placeholder, TODO, half-wired element → finish it or declare it unfinished.
 3. **Could this be anyone's?** If it fits another project/company unchanged → make it specific.
 4. **Did I claim completion?** Where is the evidence — test output, screenshot, file?
 5. **Would I defend every line in review?** If any line makes you flinch → fix that line.
+6. **What's my slop score?** Below 8 → don't ship. (Important work: did I red-team it?)
 
-All five green → ship it. Any red → fix first, then re-run the ritual.
+All six green → ship it. Any red → fix first, then re-run the ritual.
