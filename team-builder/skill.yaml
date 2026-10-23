@@ -1,5 +1,5 @@
 name: team-builder
 title: Team Builder — any task becomes a self-built specialist team
-description: Turn any task into an agentic AI team: understand the task, decompose into workstreams, draft 2-5 specialist roles (researcher, planner, coder, critic, verifier...), spawn them as parallel subagents, critic-check outputs, synthesize one deliverable. Uses the harness's native subagents — no framework install. Free models only (GLM-5.3-Flash via NIM, Ollama fallback).
+description: Turn any task into an agentic AI team — research-backed v2. Gate (justify team vs single agent), budget block (caps), strict brief template, written task ledger, checklist critic (PASS/REVISE, max 2 rounds), provenance tags, deterministic fan-in. Uses the harness's native subagents — no framework install. Free models only (GLM-5.3-Flash via NIM, Ollama fallback).
 category: Agentic AI
 include_in_prompt: true
