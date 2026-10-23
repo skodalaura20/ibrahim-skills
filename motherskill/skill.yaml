@@ -1,0 +1,5 @@
+name: motherskill
+title: Website Mother Skill — analyze, recommend, improve
+description: The first stop for any website task. The agent analyzes the website first, gives the single best recommendation, then asks sharp questions for further improvement. Runs before grilling, specs, or code.
+category: Planning
+include_in_prompt: true
