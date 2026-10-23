@@ -1,3 +1,8 @@
+---
+name: team-builder
+description: Turn any task into an agentic AI team — research-backed v2. Gate (justify team vs single agent), budget block (caps), strict brief template, written task ledger, checklist critic (PASS/REVISE, max 2 rounds), provenance tags, deterministic fan-in. Uses the harness's native subagents — no framework install. Free models only (GLM-5.3-Flash via NIM, Ollama fallback).
+---
+
 # Team Builder — koi bhi task, khud-banti team
 
 **Purpose:** Jab Ibrahim koi bhi task de, to main agent turant ek specialist team banaye: gate → samjho → todo + budget → team banao → spawn → critic check → synthesize. Koi naya framework install nahi hota — harness ke native subagents use hote hain (OpenCode / Claude Code / fcc-claude me Task tool, mere paas subagent.spawn). Research-backed v2: control loop likhe hue protocol me rehta hai, model ke dimaag me nahi.
