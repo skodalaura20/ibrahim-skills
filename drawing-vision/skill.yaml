@@ -1,0 +1,5 @@
+name: drawing-vision
+title: Drawing Vision Reader — PDF to dimensions via vision models
+description: Read engineering drawings with vision models the reliable way: PDF to PNG, vision read, verify critical dims, feed precision tools. Use for scanned PDFs and visual dimension confirmation.
+category: Engineering
+include_in_prompt: true
